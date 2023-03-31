@@ -1,0 +1,31 @@
+[ {
+  "maven" : "com.datagrate:messageHistory:0.21.0",
+  "version" : "0.21.0",
+  "artifactId" : "messageHistory",
+  "groupId" : "com.datagrate"
+}, {
+  "maven" : "org.apache.camel:camel-debezium-sqlserver:3.20.0",
+  "version" : "3.20.0",
+  "artifactId" : "camel-debezium-sqlserver",
+  "groupId" : "org.apache.camel"
+}, {
+  "maven" : "org.apache.camel:camel-jackson:3.20.0",
+  "version" : "3.20.0",
+  "artifactId" : "camel-jackson",
+  "groupId" : "org.apache.camel"
+}, {
+  "maven" : "org.apache.camel:camel-gson:3.20.0",
+  "version" : "3.20.0",
+  "artifactId" : "camel-gson",
+  "groupId" : "org.apache.camel"
+}, {
+  "maven" : "org.json:org.json:chargebee-1.0",
+  "version" : "chargebee-1.0",
+  "artifactId" : "org.json",
+  "groupId" : "org.json"
+}, {
+  "maven" : "org.apache.httpcomponents:httpclient:4.5.13",
+  "version" : "4.5.13",
+  "artifactId" : "httpclient",
+  "groupId" : "org.apache.httpcomponents"
+} ]

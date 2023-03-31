@@ -1,0 +1,4 @@
+[ {
+  "type" : "property",
+  "value" : "quarkus.log.console.color=true"
+} ]

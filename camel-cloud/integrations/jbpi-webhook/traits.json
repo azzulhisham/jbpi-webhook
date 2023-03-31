@@ -1,0 +1,19 @@
+{
+  "jolokia" : {
+    "configuration" : {
+      "enabled" : true
+    }
+  },
+  "logging" : {
+    "configuration" : {
+      "enabled" : true,
+      "level" : "DEBUG"
+    }
+  },
+  "owner" : {
+    "configuration" : {
+      "enabled" : true,
+      "targetLabels" : [ "jetic.io/data.analyzer", "jetic.io/deployment.uuid", "jetic.io/integration.name", "jetic.io/integration.revision", "jetic.io/integration.uuid", "jetic.io/integration.version", "jetic.io/log.level", "jetic.io/open.api.host", "jetic.io/profile.name", "jetic.io/profile.uuid" ]
+    }
+  }
+}
