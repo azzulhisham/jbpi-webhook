@@ -517,6 +517,7 @@ DataAnalyzer.activate(getContext(), intercept(), onException(Throwable.class))
             	if(VTMSVesselVisit.length() != 0){
             		// Providing the website URL
             		//http://staging2.johorport.com.my/VTMS_Web/rest/vessel/visitstatus
+            		//http://staging2.johorport.com.my/VTMS_Web/rest/vessel/updatephoto
             		URL url = new URL("http://154e-2001-e68-544e-b4e7-e5b1-30fd-aaf8-973.ap.ngrok.io/nifihook");
         
             		// Creating an HTTP connection
