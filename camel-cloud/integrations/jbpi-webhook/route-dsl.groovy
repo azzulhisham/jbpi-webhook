@@ -509,6 +509,7 @@ DataAnalyzer.activate(getContext(), intercept(), onException(Throwable.class))
             int eventId = pl.getInt("eventId");
             int alarmId = pl.getInt("alarmId");
             int mmsi = pl.getInt("mmsi");
+            Boolean sendVtmsVisitSuccess = false;
         
             if(alarmId == 485 || alarmId == 486 || alarmId == 487 || alarmId == 488){
         
@@ -533,6 +534,7 @@ DataAnalyzer.activate(getContext(), intercept(), onException(Throwable.class))
             		int responseCode = MyConn.getResponseCode();
         
             		if (responseCode == MyConn.HTTP_CREATED) {
+            			sendVtmsVisitSuccess = true;
             			BufferedReader in = new BufferedReader(new InputStreamReader(
             				MyConn.getInputStream()));
             			String inputLine;
@@ -552,6 +554,68 @@ DataAnalyzer.activate(getContext(), intercept(), onException(Throwable.class))
             	}
             }
         
+            pl.put("sendVtmsVisitSuccess", sendVtmsVisitSuccess);
+            exchange.getIn().setBody(pl);
         
         }
     }).id('process-04')
+    .process(new Processor() {
+        @Override
+        void process(Exchange exchange) throws Exception {
+            Object payload = exchange.getIn().getBody();
+        
+            JSONObject pl = new JSONObject();
+            pl = (JSONObject)payload;
+        
+            int eventId = pl.getInt("eventId");
+            int alarmId = pl.getInt("alarmId");
+            int mmsi = pl.getInt("mmsi");
+            Boolean sendVtmsVisitSuccess = pl.getBoolean("sendVtmsVisitSuccess");
+        
+            if(sendVtmsVisitSuccess){
+        
+            	JSONObject VTMSVesselPhoto = pl.getJSONObject("VTMSVesselPhotoObj");
+        
+            	if(VTMSVesselPhoto.length() != 0){
+            		// Providing the website URL
+            		//http://staging2.johorport.com.my/VTMS_Web/rest/vessel/visitstatus
+            		//http://staging2.johorport.com.my/VTMS_Web/rest/vessel/updatephoto
+            		URL url = new URL("http://154e-2001-e68-544e-b4e7-e5b1-30fd-aaf8-973.ap.ngrok.io/nifihook");
+        
+            		// Creating an HTTP connection
+            		HttpURLConnection MyConn = (HttpURLConnection) url.openConnection();
+            		MyConn.setRequestMethod("POST");
+            		MyConn.setDoOutput(true);
+            		MyConn.setRequestProperty("Content-Type","application/json");
+        
+            		byte[] out = VTMSVesselVisit.toString().getBytes(StandardCharsets.UTF_8);
+            		OutputStream stream = MyConn.getOutputStream();
+            		stream.write(out);
+        
+            		int responseCode = MyConn.getResponseCode();
+        
+            		if (responseCode == MyConn.HTTP_CREATED) {
+            			sendVtmsVisitSuccess = true;
+            			BufferedReader in = new BufferedReader(new InputStreamReader(
+            				MyConn.getInputStream()));
+            			String inputLine;
+        
+            			// Create a string buffer
+            			StringBuffer response = new StringBuffer();
+        
+            			// Write each of the input line
+            			while ((inputLine = in.readLine()) != null) {
+            				response.append(inputLine);
+            			}
+            			in.close();
+        
+            			String resp = response.toString();
+            			System.out.println(resp);
+            		}
+            	}
+            }
+        
+            exchange.getIn().setBody(pl);
+        
+        }
+    }).id('process-05')
