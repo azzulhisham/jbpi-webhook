@@ -1,0 +1,7 @@
+[ {
+  "type" : "env",
+  "value" : "EIP-GW.JSON=2023-04-05T15:38:54.051"
+}, {
+  "type" : "property",
+  "value" : "quarkus.log.console.color=true"
+} ]
